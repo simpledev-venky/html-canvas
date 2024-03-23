@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas</title>
+    <style>
+        *{
+        padding: 0;
+        margin: 0;
+        }
+     h1{
+        text-align: center;
+        background-color: blue; 
+        color: aliceblue;
+        padding: .4rem;
+    }
+    canvas{
+    margin: 1rem 10%;
+    border-radius: 2rem;
+    }
+
+    button{
+    color: white;
+    background-color: blue;
+    font-size: 1rem;
+    border: none;
+    padding: .6rem;
+    border-radius: .4rem;
+    font-style: italic;
+    margin: 1rem 40%;
+    cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <h1>Bubbles App</h1>
+    <canvas width="600" height="500" id="myCanvas"
+    style="background-color: rgb(251, 58, 24);">
+
+    </canvas>
+
+    <button>Reset</button>
+    <script>
+        const ele = document.getElementById("myCanvas")
+        const ctx = ele.getContext("2d")
+        
+        ctx.strokeStyle = "white"
+
+        ctx.beginPath()
+        ctx.arc(90,80,30,0,7)
+        ctx.fillStyle = "blue"
+        ctx.lineWidth=4
+        ctx.fill()
+        ctx.stroke()
+
+        ctx.beginPath()
+        ctx.arc(90,180,30,0,7)
+        ctx.fillStyle = "yellow"
+        ctx.lineWidth=4
+        ctx.fill()
+        ctx.stroke()
+
+        ctx.beginPath()
+        ctx.arc(90,280,30,0,7)
+        ctx.fillStyle = "green"
+        ctx.lineWidth=4
+        ctx.fill()
+        ctx.stroke()
+
+
+        ctx.beginPath()
+        ctx.arc(90,380,30,0,7)
+        ctx.fillStyle = "grey"
+        ctx.lineWidth=4
+        ctx.fill()
+        ctx.stroke()
+        // ctx.beginPath()
+        // const x = 700
+        // const y = 80
+        // ctx.moveTo(700,80)
+        // ctx.lineWidth=2
+        // ctx.lineTo(700,90)
+        // ctx.lineTo(670,90)
+        // ctx.lineTo(670,100)
+        // ctx.lineTo(660,80)
+        // ctx.lineTo(675,65)
+        // ctx.lineTo(675,80)
+        // ctx.lineTo(700,80)
+    // ctx.stroke()
+
+    
+    ctx.beginPath()
+        let x = 500
+        let y = 60
+        ctx.moveTo(x,y)
+        ctx.lineWidth=2
+        ctx.lineTo(x,y+10)
+        ctx.lineTo(x-30,y+10)
+        ctx.lineTo(x-30,y+20)
+        ctx.lineTo(x-40,y)
+        ctx.lineTo(x-25,y-15)
+        ctx.lineTo(x-25,y)
+        ctx.lineTo(x,y)
+        ctx.fillStyle ="skyblue"
+        ctx.fill()
+        ctx.stroke()
+
+        ctx.beginPath()
+         x = 500
+         y = 160
+        ctx.moveTo(x,y)
+        ctx.lineWidth=2
+        ctx.lineTo(x,y+10)
+        ctx.lineTo(x-30,y+10)
+        ctx.lineTo(x-30,y+20)
+        ctx.lineTo(x-40,y)
+        ctx.lineTo(x-25,y-15)
+        ctx.lineTo(x-25,y)
+        ctx.lineTo(x,y)
+        ctx.fillStyle ="skyblue"
+        ctx.fill()
+        ctx.stroke()
+
+        ctx.beginPath()
+         x = 500
+         y = 260
+        ctx.moveTo(x,y)
+        ctx.lineWidth=2
+        ctx.lineTo(x,y+10)
+        ctx.lineTo(x-30,y+10)
+        ctx.lineTo(x-30,y+20)
+        ctx.lineTo(x-40,y)
+        ctx.lineTo(x-25,y-15)
+        ctx.lineTo(x-25,y)
+        ctx.lineTo(x,y)
+        ctx.fillStyle ="skyblue"
+        ctx.fill()
+        ctx.stroke()
+
+        ctx.beginPath()
+         x = 500
+         y = 360
+        ctx.moveTo(x,y)
+        ctx.lineWidth=2
+        ctx.lineTo(x,y+10)
+        ctx.lineTo(x-30,y+10)
+        ctx.lineTo(x-30,y+20)
+        ctx.lineTo(x-40,y)
+        ctx.lineTo(x-25,y-15)
+        ctx.lineTo(x-25,y)
+        ctx.lineTo(x,y)
+        ctx.fillStyle ="skyblue"
+        ctx.fill()
+        ctx.stroke()
+    </script>
+</body>
+
+</html>

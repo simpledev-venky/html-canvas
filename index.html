@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas</title>
+    <style>
+        *{
+        padding: 0;
+        margin: 0;
+        }
+     h1{
+        text-align: center;
+        background-color: blue; 
+        color: aliceblue;
+        padding: .4rem;
+    }
+    canvas{
+    margin: 1rem 10%;
+    border-radius: 2rem;
+    }
+
+    button{
+    color: white;
+    background-color: blue;
+    font-size: 1rem;
+    border: none;
+    padding: .6rem;
+    border-radius: .4rem;
+    font-style: italic;
+    margin: 1rem 40%;
+    cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <h1>Bubbles App</h1>
+    <canvas width="600" height="500" id="myCanvas"
+    style="background-color: rgb(153, 251, 24);">
+    </canvas>
+
+    <button onclick="resetCanvas()">Reset</button>
+    <script>
+        const ele = document.getElementById("myCanvas");
+        const ctx = ele.getContext("2d");
+        let circles = [
+            { x: 90, y: 80, color: "blue", clicked: false },
+            { x: 90, y: 180, color: "yellow", clicked: false },
+            { x: 90, y: 280, color: "green", clicked: false },
+            { x: 90, y: 380, color: "grey", clicked: false }
+        ];
+        let arrows = [];
+
+        function drawCircle(x, y, color) {
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, 7);
+            ctx.fillStyle = color;
+            ctx.lineWidth = 4;
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        function drawArrow(x, y) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineWidth = 2;
+            ctx.lineTo(x, y + 10);
+            ctx.lineTo(x - 30, y + 10);
+            ctx.lineTo(x - 30, y + 20);
+            ctx.lineTo(x - 40, y);
+            ctx.lineTo(x - 25, y - 15);
+            ctx.lineTo(x - 25, y);
+            ctx.lineTo(x, y);
+            ctx.fillStyle ="skyblue";
+            ctx.fill();
+            ctx.stroke();
+        }
+        
+        function resetCanvas() {
+    ctx.clearRect(0, 0, ele.width, ele.height);
+    circles.forEach(circle => {
+        circle.clicked = false;
+        drawCircle(circle.x, circle.y, circle.color);
+    });
+    arrows = []; // Clear the arrows array
+    drawInitialArrows();
+    }
+
+
+        function drawInitialArrows() {
+            let arrowX = 500;
+            let arrowY = 60;
+            circles.forEach(circle => {
+                arrows.push({x: arrowX, y: arrowY});
+                drawArrow(arrowX, arrowY);
+                arrowY += 100;
+            });
+        }
+
+        function detectCollision(x, y) {
+            for (let i = 0; i < circles.length; i++) {
+                const circle = circles[i];
+                const dx = x - circle.x;
+                const dy = y - circle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance <= 30) {
+                    if (!circle.clicked) {
+                        circle.clicked = true;
+                        let randomColor = getRandomColor(); // Generate random color
+                circle.color = randomColor; // Assign random color to the circle
+                drawCircle(circle.x, circle.y, randomColor); // Redraw the circle with the new color
+                moveArrowToCircle(arrows[i], circle);
+                    }
+                    break;
+                }
+            }
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function moveArrowToCircle(arrow, circle) {
+            let dx = circle.x - arrow.x;
+            let dy = circle.y - arrow.y;
+            let speed = 2;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            let steps = distance / speed;
+            let stepX = dx / steps;
+            let stepY = dy / steps;
+            let count = 0;
+            let interval = setInterval(function() {
+                arrow.x += stepX;
+                arrow.y += stepY;
+                ctx.clearRect(0, 0, ele.width, ele.height);
+                circles.forEach(c => drawCircle(c.x, c.y, c.color));
+                arrows.forEach(a => drawArrow(a.x, a.y));
+                count++;
+                if (count >= steps) clearInterval(interval);
+            }, 10);
+        }
+
+        ele.addEventListener('click', function(event) {
+            const rect = ele.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            detectCollision(x, y);
+        });
+
+        circles.forEach(circle => {
+            drawCircle(circle.x, circle.y, circle.color);
+        });
+        drawInitialArrows();
+    </script>
+</body>
+</html>
